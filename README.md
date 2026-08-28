@@ -11,7 +11,8 @@ A voice-powered multilingual grocery shopping assistant that understands natural
 [![Tailwind v4](https://img.shields.io/badge/css-Tailwind%20v4-06B6D4.svg)](frontend)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
-> **Live demo:** _add deployed URL here_  
+> **Live demo:** _Deploy on Vercel + Render (see [Deployment](#deployment))_
+> **GitHub:** [BodanampatiMohith/Smart-voicecart-AI](https://github.com/BodanampatiMohith/Smart-voicecart-AI)
 > **Voice input:** Chrome or Edge required (Web Speech API). Text input works on all browsers.
 
 ---
