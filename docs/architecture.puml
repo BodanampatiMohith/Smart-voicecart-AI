@@ -1,0 +1,69 @@
+@startuml SmartCart AI — Component Architecture
+!theme plain
+skinparam backgroundColor #F4EFE4
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam ArrowColor #1C3A2E
+skinparam ComponentBorderColor #1C3A2E
+skinparam ComponentBackgroundColor #FFFAF1
+skinparam DatabaseBackgroundColor #E8C547
+skinparam ActorBackgroundColor #1C3A2E
+skinparam ActorFontColor #FFFAF1
+skinparam noteBackgroundColor #D9E2D4
+skinparam noteBorderColor #1C3A2E
+
+title SmartCart AI — Component and Deployment Architecture
+
+actor Shopper
+
+package "Presentation (Vite + React + TS)" {
+  [VoiceDock\nWeb Speech API] as Voice
+  [LanguageSelect\nen-IN | hi-IN | te-IN] as Lang
+  [ShoppingList UI] as ListUI
+  [SuggestionsPanel] as SugUI
+  [REST client] as Client
+}
+
+package "Application (FastAPI)" {
+  [POST /parse-command] as Parse
+  [CRUD /items] as Crud
+  [GET /suggestions] as SugEP
+  [Intent parser\nGroq Llama 3.3 or heuristic] as NLP
+  [Interval engine\npandas] as Engine
+  [Substitute map] as Subs
+}
+
+database "Persistence" {
+  [list_items]
+  [purchase_history]
+}
+
+cloud "Groq API" as Groq
+
+Shopper --> Voice : hold mic
+Shopper --> Lang : pick locale
+Voice --> Client : transcript + lang hint
+ListUI --> Client
+SugUI --> Client
+Client --> Parse
+Client --> Crud
+Client --> SugEP
+Parse --> NLP
+NLP --> Groq : JSON-only system prompt
+NLP --> Parse : Intent{action,item,qty,category,lang}
+Parse --> list_items : mutate
+Crud --> list_items
+SugEP --> Engine
+Engine --> purchase_history : group by item
+Engine --> Subs
+SugEP --> SugUI : ranked restock suggestions
+
+legend right
+  SmartCart AI — Voice Shopping Assistant
+  Voice input in English, Hindi, Telugu
+  LLM-powered intent extraction
+  Computed restock suggestions from purchase history
+  Static substitute mapping (disclosed)
+endlegend
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml SmartCart AI — Domain classes
+!theme plain
+hide empty methods
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor #FFFAF1
+skinparam classBorderColor #1C3A2E
+
+class ListItem {
+  +id: UUID
+  +item: str
+  +quantity: int
+  +category: Category
+  +added_at: datetime
+}
+
+class PurchaseHistory {
+  +id: UUID
+  +item: str
+  +category: Category
+  +quantity: int
+  +purchased_at: datetime
+}
+
+class Intent {
+  +action: add | remove | modify | search | complete
+  +item: str?
+  +quantity: int
+  +category: Category
+  +original_language: str
+  +confidence: float
+}
+
+class Suggestion {
+  +item: str
+  +reason: str
+  +avg_interval_days: float?
+  +days_since_last: float?
+  +purchase_count: int
+  +substitutes: str[]
+}
+
+ListItem --> PurchaseHistory : complete() archives
+Intent ..> ListItem : apply()
+PurchaseHistory ..> Suggestion : interval >= 0.8 * mean
+
+@enduml

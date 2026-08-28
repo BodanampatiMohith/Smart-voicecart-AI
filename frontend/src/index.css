@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --color-cream: #FAF5EF;
+  --color-cream-dark: #F0EAE0;
+  --color-white: #FFFFFF;
+  --color-sage: #3D6B52;
+  --color-sage-light: #5A8A6E;
+  --color-sage-pale: #E8F0EB;
+  --color-terracotta: #E07A5F;
+  --color-terracotta-light: #F4A68E;
+  --color-charcoal: #2D2A26;
+  --color-warm-gray: #8C8680;
+  --color-border: #E8E2DA;
+  --color-border-hover: #D4CCC2;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+}
+
+#root {
+  width: 100%;
+}
+
+/* Marquee scrolling animation */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Mic pulse ring */
+.mic-ring {
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* Smooth card hover */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(45, 42, 38, 0.1);
+}
+
+/* Category card hover scale */
+.cat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cat-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(45, 42, 38, 0.12);
+}
+
+/* Primary button */
+.btn-primary {
+  background-color: var(--color-sage);
+  color: white;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-sage-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(61, 107, 82, 0.3);
+}
+
+/* Accent button */
+.btn-accent {
+  background-color: var(--color-terracotta);
+  color: white;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-accent:hover {
+  background-color: #d06a50;
+  transform: translateY(-1px);
+}
